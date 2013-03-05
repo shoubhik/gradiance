@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="dbQuery"
+          class="com.ncsu.gradiance.service.DataBaseConnectionImpl" />
+
+    <bean id="validateUser"
+          class="com.ncsu.gradiance.service.ValidateUser" >
+        <constructor-arg ref="dbQuery" />
+    </bean>
+
+    <bean id="accessControlList"
+          class="com.ncsu.gradiance.service.AccessControlListImpl" >
+        <constructor-arg ref="dbQuery" />
+        <constructor-arg ref="mappedPageFactory" />
+    </bean>
+
+    <bean id="courseService"
+          class="com.ncsu.gradiance.service.CourseService" >
+        <constructor-arg ref="dbQuery" />
+
+    </bean>
+
+    <bean id="questionService"
+          class="com.ncsu.gradiance.service.QuestionService" >
+        <constructor-arg ref="dbQuery" />
+    </bean>
+
+    <bean id="homeworkService"
+          class="com.ncsu.gradiance.service.HomeworkService" >
+        <constructor-arg ref="dbQuery" />
+        <property name="courseService"><ref bean="courseService"/></property>
+    </bean>
+
+
+    <bean id="registerUser"
+          class="com.ncsu.gradiance.service.RegisterUser" >
+        <constructor-arg ref="dbQuery" />
+        <constructor-arg ref="accessControlList" />
+    </bean>
+
+    <bean id="mappedPageFactory" class="com.ncsu.gradiance.service.MappedPageFactory" />
+
+</beans>
