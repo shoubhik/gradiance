@@ -46,5 +46,12 @@ public class Answer {
         return text != null && !text.trim().equals("") && hint.isValid();
     }
 
+    public boolean equals(Object o){
+        if(o == null || !(o instanceof Answer))
+            return false;
+        Answer that = (Answer)o;
+        return this.id == that.id;
+    }
+
 
 }

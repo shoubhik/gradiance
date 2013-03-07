@@ -22,6 +22,7 @@ public class MappedPageFactory {
         studentMappedPages.put("courseAdded", "profCourseAdded");
         studentMappedPages.put("addCourseFailure", "addCourseFailure");
         studentMappedPages.put("selectCourse", "profSelectCourse");
+        studentMappedPages.put("afterCourseSelected", "studentAfterCourseSelected");
 
     }
 

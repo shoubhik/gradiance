@@ -12,6 +12,7 @@ public class Question {
     private Hint hint;
     private boolean hasHint;
     private List<Answer> answers;
+    private Answer response;
 
     public Hint getHint() {
         return hint;
@@ -89,5 +90,28 @@ public class Question {
 
     public String toString(){
         return this.id+"-"+this.text;
+    }
+
+    public boolean equals(Object o){
+        if(o == null || !(o instanceof Question))
+            return false;
+        Question that = (Question)o;
+        return this.id == that.id;
+    }
+
+    public boolean isResponseCorrect(int ansId){
+        for(Answer answer : this.answers)
+            if(answer.getId() == ansId && answer.isCorrect())
+                return true;
+        return false;
+
+    }
+
+    public Answer getResponse() {
+        return response;
+    }
+
+    public void setResponse(Answer response) {
+        this.response = response;
     }
 }

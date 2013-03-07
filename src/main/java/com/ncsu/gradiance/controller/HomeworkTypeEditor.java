@@ -18,7 +18,7 @@ public class HomeworkTypeEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        if(text != null){
+        if(text != null && !text.trim().equals("")){
             String tokens[] = text.split("-");
             Homework homework = this.homeworkService.getHomework(
                     Integer.parseInt(tokens[0]), null);

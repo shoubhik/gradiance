@@ -114,32 +114,62 @@ public class QuestionService extends BaseService{
         List<Question> questions = new ArrayList<>();
         try {
             while(resultSet.next()){
-                Question question = new Question();
-                question.setId(resultSet.getInt(1));
-                question.setTopicId(resultSet.getString(2));
-                question.setText(resultSet.getString(3));
-                question.setDifficultyLevel(resultSet.getInt(4));
-                question.setPointIncorrect(resultSet.getInt(5));
-                question.setPointCorrect(resultSet.getInt(6));
-                int hintId = resultSet.getInt(7);
-                if(hintId > 0 ){
-                    String hintQuery = getQuery(GET_HINT, getIntValueForSql(hintId));
-                    ResultSet hintResultSet = this.dataBaseQuery.
-                            executeQuery(hintQuery, errors);
-                    while(hintResultSet.next()) {
-                        Hint hint = new Hint();
-                        hint.setId(hintResultSet.getInt(1));
-                        hint.setText(hintResultSet.getString(2));
-                        question.setHint(hint);
-                    }
-
-                }
-                questions.add(question);
+                questions.add(getQuestion(resultSet,  errors));
             }
         } catch (SQLException e) {
             errors.rejectValue("", "sql.exception", e.getMessage());
         }
         return questions;
+    }
+
+    public Question getQuestion(int id, Errors errors){
+        String query = getQuery(GET_QUESTION, getIntValueForSql(id));
+        ResultSet rs = this.dataBaseQuery.executeQuery(query, errors);
+        try {
+            while(rs.next()){
+                return getQuestion(rs, errors);
+
+            }
+        } catch (SQLException e) {
+            errors.rejectValue("", "sql.exception", e.getMessage());
+        }
+        throw new IllegalArgumentException();
+
+    }
+
+    private Question getQuestion(ResultSet resultSet, Errors errors) throws
+            SQLException {
+        Question question = new Question();
+        question.setId(resultSet.getInt(1));
+        question.setTopicId(resultSet.getString(2));
+        question.setText(resultSet.getString(3));
+        question.setDifficultyLevel(resultSet.getInt(4));
+        question.setPointIncorrect(resultSet.getInt(5));
+        question.setPointCorrect(resultSet.getInt(6));
+        int hintId = resultSet.getInt(7);
+        if(hintId > 0 ){
+            Hint hint = getHint(hintId, errors);
+            question.setHint(hint);
+        }
+        return  question;
+
+    }
+
+    public Hint getHint(int id, Errors errors){
+        String hintQuery = getQuery(GET_HINT, getIntValueForSql(id));
+        Hint hint = new Hint();
+        ResultSet hintResultSet = this.dataBaseQuery.
+                executeQuery(hintQuery, errors);
+        try {
+            while(hintResultSet.next()) {
+                hint.setId(hintResultSet.getInt(1));
+                hint.setText(hintResultSet.getString(2));
+            }
+        } catch (SQLException e) {
+            errors.rejectValue("", "sql.exception", e.getMessage());
+        }
+        return hint;
+
     }
 
     private int getHintId(Errors errors) throws SQLException {
@@ -179,6 +209,49 @@ public class QuestionService extends BaseService{
             errors.rejectValue("", "sql.exception", e.getMessage());
         }
         return count;
+    }
 
+    public List<Answer> getAnswers(Question question, Errors errors){
+        String query = getQuery(GET_ANSWERS, getIntValueForSql(question.getId()));
+        ResultSet rs = this.dataBaseQuery.executeQuery(query, errors);
+        List<Answer> answers = new ArrayList<>();
+        try {
+            while(rs.next()){
+
+                answers.add(getAnswer(rs, errors));
+            }
+        } catch (SQLException e) {
+            errors.rejectValue("", "sql.exception", e.getMessage());
+        }
+        return answers;
+    }
+
+    public Answer getAnswer(int id, Errors errors){
+        String query = getQuery(GET_ANSWER, getIntValueForSql(id));
+        ResultSet rs = this.dataBaseQuery.executeQuery(query, errors);
+        try {
+            while (rs.next()) {
+                return   getAnswer(rs, errors);
+
+            }
+        } catch (SQLException e) {
+            errors.rejectValue("", "sql.exception", e.getMessage());
+        }
+        throw new IllegalArgumentException();
+    }
+
+
+    private Answer getAnswer(ResultSet rs, Errors errors) throws SQLException {
+        Answer answer = new Answer();
+        answer.setId(rs.getInt(1));
+        answer.setText(rs.getString(2));
+        answer.setHint(getHint(rs.getInt(3), errors));
+        String isCorrectQuery = getQuery(ANSWER_CORRECT,
+                                         getIntValueForSql(answer.getId()));
+        ResultSet rs1 = this.dataBaseQuery.executeQuery(isCorrectQuery, errors);
+        while(rs1.next()) {
+            answer.setCorrect(rs1.getInt(1));
+        }
+        return answer;
     }
 }

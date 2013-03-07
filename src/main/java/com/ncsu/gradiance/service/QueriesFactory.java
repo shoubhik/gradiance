@@ -43,6 +43,23 @@ public class QueriesFactory {
     public static String STUDENT_TAKE_COURSE = "select course_id from enrolled where student_id='%s'";
     public static String COURSE_TOKEN = "select token from courses where course_id=%s";
     public static String ENROLLED_IN_COURSE = "select course_id from enrolled where student_id='%s'";
+    public static String GET_ACTIVE_HOMEWORKS = "select * from homeworks where course_id=%s and end_date > %s";
+    public static String GET_NUM_HOMEWORK_ATTEMPTS = "select count(*) from hw_student where attempt_date is not null and hw_id=%s and student_id=%s";
+    public static String GET_RANDOM_SEED = "select seed from students where student_id=%s";;
+    public static String GET_ANSWERS = "select * from answers where ans_id in (select unique(ans_id) from question_answer where q_id=%s)";
+    public static String ANSWER_CORRECT = "select correct from question_answer where ans_id=%s";
+    public static String ADD_ATTEMPT_ANS = "insert into attempt_ans values(%s, %s)";
+    public static String ADD_ATTEMPT = "insert into attempt values(%s, %s, %s, %s, %s)";
+    public static String ADD_HW_STUDENT = "insert into hw_student values(%s, %s, %s, %s, %s)";
+    public static String GET_PENDING_HOMEWORK = "select attempt_id from hw_student where  hw_id=%s and student_id=%s and attempt_date is null";
+    public static String GET_ATTEMPT_QUESTIONS = "select q_id, attempt_ans_id, response_id, response_exp from attempt where attempt_id=%s";
+    public static String GET_QUESTION = "select * from questions where q_id=%s";
+    public static String GET_ANSWER = "select * from answers where ans_id=%s";
+    public static String GET_ATTEMPT_HOMEWORK_ANS = "select ans_id from attempt_ans where attempt_ans_id=%s";
+    public static String UPDATE_ATTEMPT = "update attempt set response_id=%s, response_exp=%s where attempt_id=%s and q_id=%s";
+    public static String UPDATE_HW_STUDENT = "update hw_student set attempt_date=%s,score=%s where hw_id=%s and student_id=%s and attempt_id=%s";
+    public static String GET_STUDENT_PAST_ATTEMPT = "select * from hw_student where student_id=%s order by attempt_date";
+    public static String GET_ATTEMPT_SCORE = "select score from hw_student where attempt_id=%s";
 
 
 

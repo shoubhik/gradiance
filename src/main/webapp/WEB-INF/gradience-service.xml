@@ -28,10 +28,16 @@
         <constructor-arg ref="dbQuery" />
     </bean>
 
+    <bean id="submitAttemptHomeworkService"
+          class="com.ncsu.gradiance.service.SubmitAttemptHomeworkService" >
+        <constructor-arg ref="homeworkService" />
+    </bean>
+
     <bean id="homeworkService"
           class="com.ncsu.gradiance.service.HomeworkService" >
         <constructor-arg ref="dbQuery" />
         <property name="courseService"><ref bean="courseService"/></property>
+        <property name="questionService"><ref bean="questionService"/></property>
     </bean>
 
 

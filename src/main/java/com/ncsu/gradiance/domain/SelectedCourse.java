@@ -8,6 +8,10 @@ public class SelectedCourse {
     private CreateQuestion createQuestion;
     private Homework homework;
     private Report report;
+    private boolean isEditHomework;
+    private boolean isAttemptHomework;
+    private AttemptHomework homeworkAttempt;
+    private PastSubmission pastSubmission;
 
     public Course getCourse() {
         return course;
@@ -39,5 +43,37 @@ public class SelectedCourse {
 
     public void setReport(Report report) {
         this.report = report;
+    }
+
+    public boolean isEditHomework() {
+        return isEditHomework;
+    }
+
+    public void setEditHomework(boolean editHomework) {
+        isEditHomework = editHomework;
+    }
+
+    public boolean isAttemptHomework() {
+        return isAttemptHomework;
+    }
+
+    public void setAttemptHomework(boolean attemptHomework) {
+        isAttemptHomework = attemptHomework;
+    }
+
+    public AttemptHomework getHomeworkAttempt() {
+        return homeworkAttempt;
+    }
+
+    public void setHomeworkAttempt(AttemptHomework homeworkAttempt) {
+        this.homeworkAttempt = homeworkAttempt;
+    }
+
+    public PastSubmission getPastSubmission() {
+        return pastSubmission;
+    }
+
+    public void setPastSubmission(PastSubmission pastSubmission) {
+        this.pastSubmission = pastSubmission;
     }
 }

@@ -40,6 +40,8 @@ public class EditHomeworkController {
         homework.setCourse(selectedCourse.getCourse());
         homework.setNewHomework(false);
         selectedCourse.setHomework(homework);
+        selectedCourse.setEditHomework(true);
+        selectedCourse.setAttemptHomework(false);
         return "selectHomeworkTopic";
     }
 

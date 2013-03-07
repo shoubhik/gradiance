@@ -16,6 +16,8 @@ public class Homework {
     private String name;
     private boolean newHomework;
     private int id;
+    private int attemptCount;
+    private int attemptId;
 
     public String getName() {
         return name;
@@ -117,5 +119,29 @@ public class Homework {
 
     public String toString(){
         return this.id+"-"+this.name;
+    }
+
+    public String toStringWithEndDate(){
+        return toString() + "-Last Date:"+endDate.toString();
+    }
+
+    public String toAttemptString(){
+        return this.attemptId + "-" + this.name + "-" + "Attempt " + attemptCount;
+    }
+
+    public int getAttemptCount() {
+        return attemptCount;
+    }
+
+    public void setAttemptCount(int attemptCount) {
+        this.attemptCount = attemptCount;
+    }
+
+    public int getAttemptId() {
+        return attemptId;
+    }
+
+    public void setAttemptId(int attemptId) {
+        this.attemptId = attemptId;
     }
 }

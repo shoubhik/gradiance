@@ -84,7 +84,7 @@ create table attempt(attempt_id int not null, q_id int not null, attempt_ans_id 
   foreign key(q_id) references questions(q_id))
 
 create table hw_student(hw_id int not null, student_id varchar(30) not null, attempt_id int not null,
-  attempt_date date not null,
+  attempt_date date ,
   foreign key(hw_id) references homeworks(hw_id), foreign key (student_id) references students(student_id))
 
 alter table hw_student add score int
@@ -92,3 +92,10 @@ alter table hw_student add score int
 alter table attempt add response_id int
 
 alter table attempt add constraint fk_response foreign key (response_id) references answers(ans_id)
+
+alter table hw_student modify (attempt_date null)
+
+create table hw_questions(hw_id int not null, q_id int not null, foreign key (hw_id)
+references homeworks(hw_id), foreign key (q_id) references questions(q_id))
+
+alter table attempt add response_exp varchar(100) null
