@@ -1,4 +1,4 @@
-create table users u_id varchar(30), pwd varchar(30) not null, primary key(uid);
+create table users (u_id varchar(30), pwd varchar(30) not null, primary key(uid));
 
 insert into users values ('kogan', 'kogan');
 
@@ -24,8 +24,8 @@ create table teaches(course_id varchar(30), prof_id varchar(40),
   primary key (course_id, prof_id), foreign key(course_id) references courses(course_id),
   foreign key(prof_id) references prof(prof_id))
 
-create table course_topics(course_id varchar(30), topic_id varchar(30), name varchar(100) not null
-  , primary key (topic_id), foreign key (course_id) references courses(course_id))
+create table course_topics(course_id varchar(30) NOT NULL, topic_id varchar(30), name varchar(100) not null
+  , primary key (course_id, topic_id), foreign key (course_id) references courses(course_id))
 
 insert into course_topics values('CSC440', 'CSC4401', 'database Fundamental')
 insert into course_topics values('CSC440', 'CSC4402', 'Security and Authorization')
