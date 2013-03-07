@@ -58,7 +58,7 @@ public class QueriesFactory {
     public static String GET_ATTEMPT_HOMEWORK_ANS = "select ans_id from attempt_ans where attempt_ans_id=%s";
     public static String UPDATE_ATTEMPT = "update attempt set response_id=%s, response_exp=%s where attempt_id=%s and q_id=%s";
     public static String UPDATE_HW_STUDENT = "update hw_student set attempt_date=%s,score=%s where hw_id=%s and student_id=%s and attempt_id=%s";
-    public static String GET_STUDENT_PAST_ATTEMPT = "select * from hw_student where student_id=%s order by attempt_date";
+    public static String GET_STUDENT_PAST_ATTEMPT = "select * from hw_student, homeworks where hw_student.hw_id=homeworks.hw_id and homeworks.course_id=%s and hw_student.student_id=%s order by attempt_date";
     public static String GET_ATTEMPT_SCORE = "select score from hw_student where attempt_id=%s";
 
 

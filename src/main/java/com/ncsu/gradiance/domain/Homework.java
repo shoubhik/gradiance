@@ -18,6 +18,7 @@ public class Homework {
     private int id;
     private int attemptCount;
     private int attemptId;
+    private int score;
 
     public String getName() {
         return name;
@@ -143,5 +144,13 @@ public class Homework {
 
     public void setAttemptId(int attemptId) {
         this.attemptId = attemptId;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

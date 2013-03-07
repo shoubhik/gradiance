@@ -358,9 +358,10 @@ public class HomeworkService extends  BaseService{
         this.dataBaseQuery.executeQuery(query, errors);
     }
 
-    public List<Homework> getAttemptedHomewroksSortedByDate(User user,
+    public List<Homework> getAttemptedHomewroksSortedByDate(User user,Course course,
                                                             Errors errors){
         String query = getQuery(GET_STUDENT_PAST_ATTEMPT,
+                                getStringValueForSql(course.getCourseId()),
                                 getStringValueForSql(user.getUid()));
         ResultSet rs = this.dataBaseQuery.executeQuery(query, errors);
         List<Homework> homeworks = new ArrayList<>();
@@ -376,7 +377,9 @@ public class HomeworkService extends  BaseService{
                 homework.setAttemptCount(count);
                 count++;
                 homework.setAttemptId(rs.getInt(3));
+                homework.setScore(rs.getInt(5));
                 homeworks.add(homework);
+
             }
         } catch (SQLException e) {
             errors.rejectValue("", "sql.exception", e.getMessage());

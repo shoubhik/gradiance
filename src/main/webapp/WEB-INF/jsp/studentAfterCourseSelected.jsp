@@ -9,6 +9,7 @@ Selected Options: <c:out value="${selectedCourse.course.courseId}"/> | <c:out va
 <br/>
 <a href="attemptHomework">Attempt homework</a><br/>
 <a href="viewPastSubmissions">View past homeworks</a><br/>
+<a href="viewScores">View Scores</a><br/>
 <a href="selectCourse">select another course</a><br/>
 
 </body>

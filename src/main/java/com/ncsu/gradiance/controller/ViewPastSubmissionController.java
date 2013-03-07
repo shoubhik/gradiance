@@ -62,7 +62,8 @@ public class ViewPastSubmissionController {
                                              selectedCourse, BindingResult result){
         List<String> homeworks = new ArrayList<>();
         for(Homework homework : this.homeworkService.
-                getAttemptedHomewroksSortedByDate(user, result) )
+                getAttemptedHomewroksSortedByDate(user, selectedCourse.getCourse(),
+                                                  result) )
             homeworks.add(homework.toAttemptString());
         return homeworks;
     }
